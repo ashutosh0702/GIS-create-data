@@ -127,7 +127,7 @@ def lambda_handler(event, context):
     
         s3.put_object(Body=geojson_bytes, Bucket=bucket_name, Key=object_key)
     
-        
+        print("Checking for CI/CD")
     return response
     
     
