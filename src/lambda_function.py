@@ -32,7 +32,9 @@ def lambda_handler(event, context):
     
     print(decoded_body, type(decoded_body))
     
-    ev = json.loads(decode_body)
+    ev = json.loads(decoded_body)
+    
+    print(ev,type(ev))
     
     #ev = json.loads(event["body"])
     
