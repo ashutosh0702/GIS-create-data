@@ -6,6 +6,7 @@ import os
 import zipfile
 import pandas as pd
 import geodesic_utils as gs
+import base64
 
 # Set up the S3 client
 s3 = boto3.client('s3')
@@ -27,8 +28,13 @@ def lambda_handler(event, context):
     
     
     print(event)
+    decoded_body = base64.b64decode(event["body"]).decode('utf-8')
     
-    ev = json.loads(event["body"])
+    print(decoded_body, type(decoded_body))
+    
+    ev = json.loads(decode_body)
+    
+    #ev = json.loads(event["body"])
     
     try:
         farmer_name = ev["name"]
