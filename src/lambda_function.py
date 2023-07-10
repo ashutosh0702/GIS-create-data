@@ -64,7 +64,7 @@ def lambda_handler(event, context):
     }
     
     
-    print("Object uploaded to s3")
+    
     polygon = Polygon(coords)
 
     # create a geopandas GeoDataFrame with the polygon feature
