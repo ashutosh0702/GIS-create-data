@@ -26,6 +26,9 @@ ph_scale = {
 s3 = boto3.client('s3')
 
 def lambda_handler(event, context):
+
+    print(event,type(event))
+
     decoded_body = base64.b64decode(event["body"]).decode('utf-8')
     ev = json.loads(decoded_body)
 
@@ -42,7 +45,7 @@ def lambda_handler(event, context):
     area = gs.calc_geodesic_area(coords)
     polygon = Polygon(coords)
     polygon_gdf = gpd.GeoDataFrame(index=[0], crs=EPSG_4326, geometry=[polygon])
-
+    print(polygon_gdf)
     # Download and extract shapefile
     s3.download_file(bucket_agro, file_key, os.path.join("/tmp", file_key))
     os.chdir("/tmp")
@@ -53,7 +56,7 @@ def lambda_handler(event, context):
 
     # Perform spatial join
     res = gpd.sjoin(polygon_gdf, params_df, how='left', predicate='within')
-
+    print(f"res : {res}")
     if pd.isna(res['NAME_1'][0]):
         response = {
             "statusCode": 200,
