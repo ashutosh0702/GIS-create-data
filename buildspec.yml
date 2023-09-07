@@ -8,12 +8,12 @@ phases:
   build:
     commands:
       - echo Building the Docker image...
-      - docker build -t create-data-new .
-      - docker tag create-data-new:latest 268065301848.dkr.ecr.us-west-2.amazonaws.com/create-data-new:latest
+      - docker build -t create-data .
+      - docker tag create-data:latest 268065301848.dkr.ecr.us-west-2.amazonaws.com/create-data:latest
   post_build:
     commands:
       - echo Pushing the Docker image to Amazon ECR...
-      - docker push 268065301848.dkr.ecr.us-west-2.amazonaws.com/create-data-new:latest
+      - docker push 268065301848.dkr.ecr.us-west-2.amazonaws.com/create-data:latest
      
       - echo Updating the AWS Lambda function...
-      - aws lambda update-function-code --function-name create-data-new --image-uri 268065301848.dkr.ecr.us-west-2.amazonaws.com/create-data-new:latest
+      - aws lambda update-function-code --function-name create-data --image-uri 268065301848.dkr.ecr.us-west-2.amazonaws.com/create-data:latest
